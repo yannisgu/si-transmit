@@ -1,0 +1,1 @@
+ socat -dddd pty,raw,echo=0,link=/Users/yannisgu/dev/tty1 pty,raw,echo=0,link=/Users/yannisgu/dev/tty2
