@@ -3,16 +3,19 @@ const SerialPort = require("serialport");
 const startByte = 0x02;
 const endByte = 0x03;
 
-function readDevice(device, callback) {
-  const port = new SerialPort(device);
+function readDevice(device, {
+  onData, onClose, onError
+}) {
+  const port = new SerialPort(device, { baudRate: 38400 });
 
   let currentQueue = [];
 
-  port.on("error", function(error) {
+  port.on("error", function (error) {
     console.error("An error occured reading the device " + device, error);
+    onError()
   });
 
-  port.on("data", function(data) {
+  port.on("data", function (data) {
     currentQueue = [...currentQueue, ...data];
 
     let currentMessage = [];
@@ -27,7 +30,7 @@ function readDevice(device, callback) {
         currentMessage.push(byte);
 
         if (byte === endByte) {
-          callback(Buffer.from(currentMessage));
+          onData(Buffer.from(currentMessage));
           currentMessage = [];
           hasStarted = false;
         }
@@ -37,8 +40,9 @@ function readDevice(device, callback) {
     currentQueue = currentMessage;
   });
 
-  port.on("close", function() {
+  port.on("close", function () {
     console.log("Device " + device + " closed.");
+    onClose();
   });
 }
 
