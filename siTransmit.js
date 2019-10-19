@@ -5,6 +5,7 @@ const startAllPorts = require("./lib/source/allPorts");
 const startQueueSource = require("./lib/source/queue");
 const startQueueTarget = require("./lib/targets/queue");
 const fs = require("fs");
+const { startMonitorServer } = require("./lib/monitorServer");
 
 const targetFunctions = {
   port: createPortTarget,
@@ -64,3 +65,7 @@ if (!fs.existsSync(configPath)) {
 
 const config = require(configPath);
 start(config.sources, config.targets);
+
+if (config.sources.find(_ => _.type === "allPorts")) {
+  startMonitorServer();
+}
