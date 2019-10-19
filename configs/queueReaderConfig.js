@@ -1,4 +1,5 @@
 module.exports = {
+  metricsPort: 16666,
   sources: [
     {
       type: "queue",

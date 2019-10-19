@@ -66,6 +66,6 @@ if (!fs.existsSync(configPath)) {
 const config = require(configPath);
 start(config.sources, config.targets);
 
-if (config.sources.find(_ => _.type === "allPorts")) {
-  startMonitorServer();
+if (config.metricsPort) {
+  startMonitorServer(config.metricsPort);
 }
