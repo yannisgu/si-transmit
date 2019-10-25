@@ -1,6 +1,6 @@
 const net = require("net");
 const port = 6666;
-const host = "127.0.0.1";
+const host = "localhost";
 
 function connect() {
   const client = new net.Socket();
