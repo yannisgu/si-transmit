@@ -3,6 +3,7 @@ const createSiServer = require("./lib/targets/siTcpServer");
 const createPortTarget = require("./lib/targets/port");
 const startAllPorts = require("./lib/source/allPorts");
 const startQueueSource = require("./lib/source/queue");
+const tcpSource = require("./lib/source/tcp");
 const startQueueTarget = require("./lib/targets/queue");
 const fs = require("fs");
 const { startMonitorServer } = require("./lib/monitorServer");
@@ -15,7 +16,8 @@ const targetFunctions = {
 
 const sourceFunctions = {
   allPorts: startAllPorts,
-  queue: startQueueSource
+  queue: startQueueSource,
+  tcp: tcpSource
 };
 
 function start(sourceConfigs, targetConfigs) {
