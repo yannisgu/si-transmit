@@ -5,13 +5,15 @@ const startAllPorts = require("./lib/source/allPorts");
 const startQueueSource = require("./lib/source/queue");
 const tcpSource = require("./lib/source/tcp");
 const startQueueTarget = require("./lib/targets/queue");
+const startLog = require("./lib/targets/log");
 const fs = require("fs");
 const { startMonitorServer } = require("./lib/monitorServer");
 
 const targetFunctions = {
   port: createPortTarget,
   siTcpServer: createSiServer,
-  queue: startQueueTarget
+  queue: startQueueTarget,
+  log: startLog
 };
 
 const sourceFunctions = {
